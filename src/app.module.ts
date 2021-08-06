@@ -5,6 +5,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TweetModule } from './tweet/tweet.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { TweetModule } from './tweet/tweet.module';
     }),
     inject: [ConfigService],
   }),
-    TweetModule,],
+    TweetModule,
+    UserModule,],
   controllers: [AppController],
   providers: [AppService],
   exports: [AppService]

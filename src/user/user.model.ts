@@ -26,6 +26,7 @@ export class User extends Model {
   @Column
   email: string;
 
+  // TODO: defaults to true?
   @Column
   verified: boolean;
 
@@ -40,4 +41,7 @@ export class User extends Model {
 
   @BelongsToMany(() => User, () => UserFollowing, 'userId')
   following: User[];
+
+  @BelongsToMany(() => User, () => UserFollowing, 'followingId')
+  followers: User[];
 }

@@ -19,7 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       })
 
       // User.belongsToMany(models.User, { through: 'UserFollowing', as: "followingId", foreignKey: 'userId' })
-      User.belongsToMany(models.User, { through: 'UserFollowings', foreignKey: 'userId', onDelete:'CASCADE' })
+      User.belongsToMany(models.User, { through: 'UserFollowings', foreignKey: 'userId', onDelete: 'CASCADE' })
+      // TODO?: add the other side of the relation
     }
   };
   User.init({

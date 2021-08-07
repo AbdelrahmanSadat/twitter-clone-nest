@@ -1,14 +1,14 @@
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { User } from 'src/user/models/user.model';
 
 @ObjectType()
 export class Tweet {
-  @Field(type => Int)
+  @Field((type) => Int)
   id: number;
 
   @Field({ nullable: true })
   text?: string;
 
-//   TODO: add user type
-//   @Field({ nullable: true })
-//   tweet?: string;
+  @Field((type) => User)
+  author: User;
 }

@@ -14,11 +14,12 @@ module.exports = (sequelize, DataTypes) => {
       // https://levelup.gitconnected.com/creating-sequelize-associations-with-the-sequelize-cli-tool-d83caa902233
 
       User.hasMany(models.Tweet, {
-        foreignKey: 'userId'
+        foreignKey: 'userId',
+        onDelete: 'CASCADE'
       })
 
       // User.belongsToMany(models.User, { through: 'UserFollowing', as: "followingId", foreignKey: 'userId' })
-      User.belongsToMany(models.User, { through: 'UserFollowing', foreignKey: 'userId' })
+      User.belongsToMany(models.User, { through: 'UserFollowings', foreignKey: 'userId', onDelete:'CASCADE' })
     }
   };
   User.init({

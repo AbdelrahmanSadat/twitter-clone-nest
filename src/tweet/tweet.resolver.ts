@@ -19,10 +19,10 @@ export class TweetResolver {
     }
   }
 
-  @ResolveField('text', returns => String)
-  async getText(@Parent() tweet: Tweet) {
-    const { id } = tweet;
-    // return this.postsService.findAll({ authorId: id });
-    return tweet.text + " there"
-  }
+  // @ResolveField('text', returns => String)
+  // async getText(@Parent() tweet: Tweet) {
+  //   const { id } = tweet;
+  //   // return this.postsService.findAll({ authorId: id });
+  //   return tweet.text + " there"
+  // }
 }

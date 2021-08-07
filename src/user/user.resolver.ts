@@ -1,6 +1,7 @@
 import {
   Args,
   Int,
+  Mutation,
   Parent,
   Query,
   ResolveField,
@@ -16,11 +17,11 @@ export class UserResolver {
   // the options passed to @query allow decoupling the method name
   // from the query name, since it's the same by default
   @Query((returns) => User, { name: 'user' })
-  async getUser() {
-    return await this.userService.createDemo();
+  async getUser(@Args('userId', { type: () => Int }) userId: number) {
+    return await this.userService.findOne(userId);
   }
 
-  @Query((returns) => User, { name: 'follow' })
+  @Mutation((returns) => User, { name: 'follow' })
   async follow(
     @Args('userId', { type: () => Int }) userId: number,
     @Args('followingId', { type: () => Int }) followingId: number,
@@ -28,8 +29,8 @@ export class UserResolver {
     // let followed = await this.userService.follow(userId, followingId);
     // console.log(followed);
     let foundUser = await this.userService.findWithFollowing(userId);
-    console.log("wake up")
-    console.log(foundUser)
+    console.log('wake up');
+    console.log(foundUser);
     return await this.userService.createDemo();
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Tweet } from 'src/tweet/tweet.model';
 import { User } from './user.model';
 import { UserFollowing } from './userFollowing.model';
 
@@ -23,6 +24,7 @@ export class UserService {
     });
   }
 
+  // TODO: remove prototype shit
   follow(userId, followingId) {
     this.userFollowingModel.create({ userId, followingId });
   }
@@ -33,6 +35,17 @@ export class UserService {
       include: [
         { model: User, as: 'following' },
         { model: User, as: 'followers' },
+      ],
+    });
+  }
+
+  async findOne(userId: number): Promise<User> {
+    return this.userModel.findOne({
+      where: { id: userId },
+      include: [
+        { model: User, as: 'following' },
+        { model: User, as: 'followers' },
+        { model: Tweet, as: 'tweets' },
       ],
     });
   }

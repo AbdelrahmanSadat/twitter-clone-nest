@@ -36,7 +36,7 @@ export class User extends Model {
   @Column
   passwordHash: string;
 
-  @HasMany(() => Tweet, 'teacherId')
+  @HasMany(() => Tweet, 'userId')
   tweets: Tweet[];
 
   @BelongsToMany(() => User, () => UserFollowing, 'userId')

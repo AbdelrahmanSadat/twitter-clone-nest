@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Tweet } from 'src/tweet/tweet.model';
 import { User } from './user.model';
 import { UserFollowing } from './userFollowing.model';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class UserService {
@@ -48,5 +50,30 @@ export class UserService {
         { model: Tweet, as: 'tweets' },
       ],
     });
+  }
+
+  findByEmail(email: string): Promise<User> {
+    return this.userModel.findOne({
+      where: {
+        email,
+      },
+    });
+  }
+
+
+  // todo: rewrite
+  async create(userData): Promise<User> {
+    // todo: there's cleaner syntax to do this
+    const userToCreate = new User();
+    userToCreate.username = userData.username;
+    userToCreate.email = userData.email;
+    userToCreate.verificationCode = userData.verificationCode;
+    userToCreate.passwordHash = await bcrypt.hash(userData.password, 10);
+
+    let createdUser = await userToCreate.save();
+    // TODO: user DTOs & mappers?
+    createdUser.passwordHash = undefined;
+
+    return createdUser;
   }
 }

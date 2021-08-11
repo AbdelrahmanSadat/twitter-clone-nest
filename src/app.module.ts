@@ -15,7 +15,7 @@ import { AuthModule } from './auth/auth.module';
     SequelizeModule.forRootAsync({
     imports: [ConfigModule],
     useFactory: (configService: ConfigService) => ({
-      dialect: configService.get('DB_DIALECT'),
+      dialect: 'postgres',
       host: configService.get('DB_HOST'),
       port: +configService.get('DB_PORT'),
       username: configService.get('DB_USERNAME'),
